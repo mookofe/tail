@@ -8,9 +8,8 @@ Features
 ----
   - Simple queue configuration
   - Multiple server connections
-  - Add queues message easly
+  - Add message to queues easly
   - Listen queues with useful options
-  - Command line queue messages options
 
 
 Requirements
@@ -37,24 +36,24 @@ Open your composer.json file and add the following to the require array:
 **Install dependencies**
 
 ```
-php composer install
+$ php composer install
 ```
 
 Or
 
 ```batch
-php composer update
+$ php composer update
 ```
 
 Integration
 --------------
 
-After installing the package, open your Laravel config file app/config/app.php and add the following lines.
+After installing the package, open your Laravel config file config/app.php and add the following lines.
 
 In the $providers array add the following service provider for this package.
 
 ```batch
-'Mookofe\Tail\TailServiceProvider',
+'Mookofe\Tail\ServiceProvider',
 ```
 
 In the $aliases array add the following facade for this package.
@@ -70,7 +69,7 @@ By default the library will use the RabbitMQ installation credentials (on a fres
 To override the default connection or add more servers run:
 
 ```batch
-php artisan config:publish --package=mookofe/tail
+$ php artisan vendor:publish --provider="Mookofe\Tail\ServiceProvider" --tag="config"
 ```
 
 Edit the RabbitMQ connections file at: **app/config/packages/mookofe/tail/config.php**
@@ -117,16 +116,29 @@ Adding messages to queue:
 
 **Adding message changing RabbitMQ server**
 
-```php
-    Tail::add('queue-name', 'message', 'connection_name');
+```php	
+    Tail::add('queue-name', 'message', array('connection' => 'connection_name'));
 ```
 
 
 **Adding message with different exchange**
 
 ```php
-    Tail::add('queue-name', 'message', false, 'exchange_name');
+    Tail::add('queue-name', 'message', array('exchange' => 'exchange_name'));
 ```
+
+**Adding message with different options**
+
+```php
+	$options = array (
+		'connection' => 'connection_name',
+		'exchange' => 'exchange_name',
+		'vhost' => 'vhost'
+	);	
+	
+    Tail::add('queue-name', 'message', $options);
+```
+
 
 **Using Tail object**
 
@@ -137,59 +149,41 @@ Adding messages to queue:
 	$message->connection = 'connection_name';
 	$message->exchange = 'exchange_name';
 	$message->vhost = 'vhost';
-	
-   $message->save();
+
+	$message->save();
 ```
 
 Listening queues:
 ----
 
-**Simple listener**
+**Callback based listener**
 
 ```php
-    Tail::listen('queue-name', function ($message) {
+Tail::listen('queue-name', function ($message) {
     		
-    	//Your message logic    	
-    });
+	//Your message logic code
+});
 ```
 
-###Listen using command line
-You might want to use your queue message logic in your command line in order to be able to run it using crons, other scripts, etc.
-
-To do so, you will create a class for each diferent queue on RabbitMQ using the following structure.
+**Callback listener with options**
 
 ```php
-<?php
+$options = array(
+	'message-limit' => 50,
+	'time' => 60,
+	'empty-queue-timeout' => 5,
+	'connection' => 'connection_name',
+    'exchange' => 'exchange_name',
+    'vhost' => 'vhost'
+);
 
-use Mookofe\Tail\AbstractListener;
-
-class myQueueNameListener extends AbstractListener {
-
-    /*
-     * Queue name on RabbitMQ
-     */        
-    protected $queueName = 'queue-name';
-    
-
-    /*
-     * Method called for each message on queue
-     */
-    public function listen()
-    {
-        $message = $this->getMessage();
-        
-        //Do some logic with message
-    }
-}
+Tail::listenWithOptions('queue-name', $options, function ($message) {
+    		
+	//Your message logic code		
+});
 ```
 
-Internally, the library find the class matching with this queue name and run the listen method. You just have to use the following artisan command to listen your queue:
-
-```batch
-php artisan tail:listen --queue-name=queue_name
-```
-
-**Command arguments:**
+**Options definitions:**
 
 |  Name | Description  | Default value|
 |---|---|---|
