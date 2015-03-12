@@ -3,6 +3,7 @@
     "description": "RabbitMQ and PHP client that allows you to add and listen queues messages just simple",
     "keywords": ["laravel5", "laravel", "rabbitmq", "queue", "framework", "Victor Cruz", "mookofe" ],
     "license": "MIT",
+    "version": "v1.0.0",
     "authors": [
         {
             "name": "Victor Cruz",
@@ -10,7 +11,9 @@
         }
     ],
     "require": {
-        "php": ">=5.4.7"
+        "php": ">=5.4.7",
+        "videlalvaro/php-amqplib": "2.*",
+        "illuminate/support": "5.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.0.*"
@@ -20,6 +23,5 @@
             "Mookofe\\Tail\\": "src/"
         }
     },    
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "minimum-stability": "stable"
 }
