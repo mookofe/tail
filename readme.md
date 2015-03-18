@@ -72,7 +72,7 @@ To override the default connection or add more servers run:
 $ php artisan vendor:publish --provider="Mookofe\Tail\ServiceProvider" --tag="config"
 ```
 
-Edit the RabbitMQ connections file at: **app/config/packages/mookofe/tail/config.php**
+Edit the RabbitMQ connections file at: **app/config/tail-settings.php**
 
 ```php
 return array(
