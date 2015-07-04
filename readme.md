@@ -117,7 +117,7 @@ Adding messages to queue:
 **Adding message changing RabbitMQ server**
 
 ```php	
-    Tail::add('queue-name', 'message', array('connection' => 'connection_name'));
+    Tail::add('queue-name', 'message', array('connection_name' => 'connection_name_config_file'));
 ```
 
 
@@ -131,7 +131,7 @@ Adding messages to queue:
 
 ```php
 	$options = array (
-		'connection' => 'connection_name',
+		'connection_name' => 'connection_name_config_file',
 		'exchange' => 'exchange_name',
 		'vhost' => 'vhost'
 	);	
@@ -144,9 +144,9 @@ Adding messages to queue:
 
 ```php
 	$message = new Tail::createMessage;
-	$message->queueName = 'queue-name';
+	$message->queue_name = 'queue-name';
 	$message->message = 'message';
-	$message->connection = 'connection_name';
+	$message->connection_name = 'connection_name_in_config_file';
 	$message->exchange = 'exchange_name';
 	$message->vhost = 'vhost';
 
@@ -169,10 +169,10 @@ Tail::listen('queue-name', function ($message) {
 
 ```php
 $options = array(
-	'message-limit' => 50,
+	'message_limit' => 50,
 	'time' => 60,
-	'empty-queue-timeout' => 5,
-	'connection' => 'connection_name',
+	'empty_queue_timeout' => 5,
+	'connection_name' => 'connection_name_in_config_file',
     'exchange' => 'exchange_name',
     'vhost' => 'vhost'
 );
@@ -187,13 +187,13 @@ Tail::listenWithOptions('queue-name', $options, function ($message) {
 
 |  Name | Description  | Default value|
 |---|---|---|
-| --queuename | Queue name on RabbitMQ  | * Required |
-| --message-limit | Number of messages to be proccessed   | 0: Unlimited |
-| --time | Time in seconds the proccess will be running   | 0: Unlimited |
-| --empty-queue-timeout | Time in seconds to kill listening when the queue is empty | 0: Unlimited |
-| --connection-name | Server connection name  | Defined at connections file  |
-| --exchange-name | Exchange name on RabbitMQ Server | Specified on connections file |
-| --vhost | Virtual host on RabbitMQ Server | Specified on connections file |
+| queue_name | Queue name on RabbitMQ  | * Required |
+| message_limit | Number of messages to be proccessed   | 0: Unlimited |
+| time | Time in seconds the proccess will be running   | 0: Unlimited |
+| timeout_empty | Time in seconds to kill listening when the queue is empty | 0: Unlimited |
+| connection_name | Server connection name  | Defined at connections file  |
+| exchange | Exchange name on RabbitMQ Server | Specified on connections file |
+| vhost | Virtual host on RabbitMQ Server | Specified on connections file |
 
 
 By default the listen proccess will be running forever unless you especify one of the running-time arguments above (message-limit, time, empty-queue-timeout). They can be mixed all together, so when one of the condition	is met the proccess will be stopped.
