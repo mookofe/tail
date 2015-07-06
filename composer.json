@@ -3,7 +3,7 @@
     "description": "RabbitMQ and PHP client that allows you to add and listen queues messages just simple",
     "keywords": ["laravel5", "laravel", "rabbitmq", "queue", "framework", "Victor Cruz", "mookofe" ],
     "license": "MIT",
-    "version": "v1.0.0",
+    "version": "v1.0.1",
     "authors": [
         {
             "name": "Victor Cruz",
