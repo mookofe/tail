@@ -10,6 +10,7 @@ before_script:
   - pwd
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
+  - pwd
  
 # script: build.sh
 script: phpunit --configuration phpunit.xml --coverage-text
