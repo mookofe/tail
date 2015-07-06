@@ -64,7 +64,7 @@ class Message extends BaseOptions {
         try
         { 
             $connection = new Connection($this->buildConnectionOptions());
-            $connection->open();            
+            $connection->open();
 
             $msg = new AMQPMessage($this->message, array('content_type' => 'text/plain', 'delivery_mode' => 2));
             $connection->channel->basic_publish($msg, $this->exchange, $this->queue_name);
