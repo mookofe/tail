@@ -7,7 +7,10 @@ php:
   - hhvm
  
 before_script:
+  - pwd
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
+  - pwd
  
-script: phpunit --configuration phpunit.xml
+# script: build.sh
+script: phpunit --configuration phpunit.xml --coverage-text

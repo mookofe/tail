@@ -13,7 +13,7 @@ class testBaseOptionsClass extends \PHPUnit_Framework_TestCase
 
     public function testAddWithoutOptions()
     {
-        
+        $this->assertTrue(true);
         //$tail->add('test-queue', "Message sent at :" . time());
     }
 }
