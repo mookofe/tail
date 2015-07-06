@@ -11,4 +11,6 @@ before_script:
   - composer install --prefer-source --no-interaction --dev
  
 # script: build.sh
-script: vendor/phpunit/phpunit/phpunit --verbose
+script: 
+	- pwd
+	- phpunit --configuration phpunit.xml --coverage-text
