@@ -32,6 +32,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
             __DIR__.'/../config/tail.php', 'tail-settings'
         );
         
+        //Register Facade
+        $this->app->bind('Tail', 'Mookofe\Tail\Tail');
     }
 
     /**
