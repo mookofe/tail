@@ -3,11 +3,10 @@
 use Exception;
 
 /**
- * Invalid Option Exception
+ * Invalid Connection Exception
  *
  * @author Victor Cruz <cruzrosario@gmail.com> 
  */
-class InvalidOptionException extends Exception {
-
+class InvalidConnectionException extends Exception {
     
 }
