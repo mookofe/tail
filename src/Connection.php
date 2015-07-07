@@ -1,6 +1,5 @@
 <?php namespace Mookofe\Tail;
 
-use Config;
 use Exception;
 use Mookofe\Tail\BaseOptions;
 use PhpAmqpLib\Connection\AMQPConnection;

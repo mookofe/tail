@@ -3,6 +3,7 @@
 use Closure;
 use Exception;
 use Mookofe\Tail\BaseOptions;
+use Illuminate\Config\Repository;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 
 
@@ -25,14 +26,14 @@ class Listener extends BaseOptions {
      *
      * @var int
      */
-    public $time = 2;
+    public $time = 0;
 
     /**
      * Time in seconds to kill listening when the queue is empty
      *
      * @var int
      */
-    public $empty_queue_timeout = 1;
+    public $empty_queue_timeout = 0;
 
 
    /**
@@ -42,8 +43,10 @@ class Listener extends BaseOptions {
      *
      * @return Mookofe\Tail\Listener
      */
-    public function __construct(array $options = NULL)
+    public function __construct(Repository $config, array $options = NULL)
     {
+        parent::__construct($config);
+
         $this->allowedOptions = array_merge($this->allowedOptions, array('message_limit', 'time', 'empty_queue_timeout'));
 
         if ($options)

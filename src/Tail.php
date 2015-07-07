@@ -1,5 +1,6 @@
 <?php namespace Mookofe\Tail;
 
+use App;
 use Closure;
 use Mookofe\Tail\Message;
 use Mookofe\Tail\Listener;
@@ -22,7 +23,7 @@ class Tail {
      */
     public function add($queueName, $message, array $options = null)
     {
-        $msg = new Message;
+        $msg = App::make('Mookofe\Tail\Message');
         $msg->add($queueName, $message, $options);
     }
 
@@ -33,7 +34,7 @@ class Tail {
      */
     public function createMessage()
     {
-        return new Message();        
+        return App::make('Mookofe\Tail\Message');
     }
 
     /**
@@ -46,7 +47,7 @@ class Tail {
      */
     public function listen($queue_name, Closure $callback)
     {
-        $listener = new Listener();
+        $listener = App::make('Mookofe\Tail\Listener');
         $listener->listen($queue_name, null, $callback);
     }
 
@@ -61,7 +62,7 @@ class Tail {
      */
     public function listenWithOptions($queue_name, array $options, Closure $callback)
     {
-        $listener = new Listener();
+        $listener = App::make('Mookofe\Tail\Listener');
         $listener->listen($queue_name, $options, $callback);
     }
     

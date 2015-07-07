@@ -1,7 +1,7 @@
 mookofe/tail
 =========
 
-RabbitMQ and Laravel PHP client that allows you to add and listen queues messages just simple.
+RabbitMQ and PHP client for Laravel that allows you to add and listen queues messages just simple.
 
 [![Build Status](https://travis-ci.org/mookofe/tail.svg?branch=master)](https://travis-ci.org/mookofe/tail)
 [![Latest Stable Version](https://poser.pugx.org/mookofe/tail/v/stable.svg)](https://packagist.org/packages/mookofe/tail)
@@ -22,7 +22,7 @@ Requirements
 
 Version
 ----
-1.0.2
+1.0.3
 
 
 Installation
@@ -159,7 +159,7 @@ Adding messages to queue:
 Listening queues:
 ----
 
-**Callback based listener**
+**Closure based listener**
 
 ```php
 Tail::listen('queue-name', function ($message) {
@@ -168,7 +168,7 @@ Tail::listen('queue-name', function ($message) {
 });
 ```
 
-**Callback listener with options**
+**Closure listener with options**
 
 ```php
 $options = array(

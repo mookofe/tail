@@ -1,6 +1,7 @@
 <?php namespace Mookofe\Tail;
 
 use Config;
+use Illuminate\Config\Repository;
 use Mookofe\Tail\Exceptions\InvalidOptionException;
 
 /**
@@ -16,6 +17,13 @@ class BaseOptions {
      * @var array
      */
     protected $allowedOptions = array('exchange', 'vhost', 'connection_name', 'queue_name');
+
+    /**
+     * Config repository dependency
+     *
+     * @var Illuminate\Config\Repository
+     */
+    protected $config;
 
     /**
      * Exchange name on RabbitMQ Server
@@ -45,6 +53,18 @@ class BaseOptions {
      */
     public $queue_name;
 
+
+    /**
+     * Constructor
+     *
+     * @param Illuminate\Config\Repository $config  Config dependency
+     *
+     * @return Mookofe\Tail\BaseOptions
+     */
+    public function __construct(Repository $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * Validate the given options with the allowed options
@@ -91,13 +111,13 @@ class BaseOptions {
     public function buildConnectionOptions()
     {
         //Default connection
-        $connection_name = Config::get("tail-settings.default");
+        $connection_name = $this->config->get("tail-settings.default");
 
         //Check if set for this connection
         if ($this->connection_name)
             $connection_name = $this->connection_name;
 
-        $connectionOptions = Config::get("tail-settings.connections.$connection_name");
+        $connectionOptions = $this->config->get("tail-settings.connections.$connection_name");
 
         //Set current instance properties values
         if ($this->vhost)

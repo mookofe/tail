@@ -3,6 +3,7 @@
 use Config;
 use Mookofe\Tail\Connection;
 use Mookofe\Tail\BaseOptions;
+use Illuminate\Config\Repository;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Connection\AMQPConnection;
 
@@ -28,8 +29,10 @@ class Message extends BaseOptions {
      *
      * @return Mookofe\Tail\Message
      */
-    public function __construct(array $options = NULL)
+    public function __construct(Repository $config, array $options = NULL)
     {
+        parent::__construct($config);
+
         if ($options)
             $this->setOptions($options);
     }
