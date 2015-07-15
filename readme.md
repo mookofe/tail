@@ -11,7 +11,7 @@ Features
 ----
   - Simple queue configuration
   - Multiple server connections
-  - Add message to queues easly
+  - Add message to queues easily
   - Listen queues with useful options
 
 
