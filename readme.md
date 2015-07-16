@@ -191,15 +191,15 @@ Tail::listenWithOptions('queue-name', $options, function ($message) {
 |  Name | Description  | Default value|
 |---|---|---|
 | queue_name | Queue name on RabbitMQ  | * Required |
-| message_limit | Number of messages to be proccessed   | 0: Unlimited |
-| time | Time in seconds the proccess will be running   | 0: Unlimited |
+| message_limit | Number of messages to be processed   | 0: Unlimited |
+| time | Time in seconds the process will be running   | 0: Unlimited |
 | empty\_queue\_timeout | Time in seconds to kill listening when the queue is empty | 0: Unlimited |
 | connection_name | Server connection name  | Defined at connections file  |
 | exchange | Exchange name on RabbitMQ Server | Specified on connections file |
 | vhost | Virtual host on RabbitMQ Server | Specified on connections file |
 
 
-By default the listen proccess will be running forever unless you especify one of the running time arguments above (message\_limit, time, empty\_queue\_timeout). They can be mixed all together, so when one of the condition	is met the proccess will be stopped.
+By default the listen process will be running forever unless you specify one of the running time arguments above (message\_limit, time, empty\_queue\_timeout). They can be mixed all together, so when one of the condition	is met the process will be stopped.
 
 
 
