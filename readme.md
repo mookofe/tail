@@ -1,7 +1,7 @@
 mookofe/tail
 =========
 
-RabbitMQ and PHP client for Laravel that allows you to add and listen queues messages just simple.
+RabbitMQ and PHP client for Laravel and Lumen that allows you to add and listen queues messages just simple.
 
 [![Build Status](https://travis-ci.org/mookofe/tail.svg?branch=master)](https://travis-ci.org/mookofe/tail)
 [![Latest Stable Version](https://poser.pugx.org/mookofe/tail/v/stable.svg)](https://packagist.org/packages/mookofe/tail)
@@ -17,12 +17,12 @@ Features
 
 Requirements
 ----
-  - videlalvaro/php-amqplib: 2.*
+  - php-amqplib/php-amqplib: 2.*
 
 
 Version
 ----
-1.0.3
+1.0.4
 
 
 Installation
@@ -50,8 +50,8 @@ $ php composer update
 
 Integration
 --------------
-
-After installing the package, open your Laravel config file config/app.php and add the following lines.
+### Laravel
+After installing the package, open your Laravel config file **config/app.php** and add the following lines.
 
 In the $providers array add the following service provider for this package.
 
@@ -65,17 +65,41 @@ In the $aliases array add the following facade for this package.
 'Tail' => 'Mookofe\Tail\Facades\Tail',
 ```
 
-RabbitMQ Connections
---------------
-By default the library will use the RabbitMQ installation credentials (on a fresh installation the user "guest" is created with password "guest").
-
-To override the default connection or add more servers run:
+Add servers connection file running:
 
 ```batch
 $ php artisan vendor:publish --provider="Mookofe\Tail\ServiceProvider" --tag="config"
 ```
 
-Edit the RabbitMQ connections file at: **app/config/tail-settings.php**
+### Lumen
+Register the Lumen Service Provider in **bootstrap/app.php**:
+
+```php
+/*
+|--------------------------------------------------------------------------
+| Register Service Providers
+|--------------------------------------------------------------------------
+*/
+
+//...
+
+$app->configure('tail-settings');
+$app->register(Mookofe\Tail\LumenServiceProvider::class);
+
+//...
+```
+
+Make sure sure `$app->withFacades();` is uncomment in your **bootstrap/app.php** file
+
+
+Create a **config** folder in the root directory of your Lumen application and copy the content
+from **vendor/mookofe/tail/config/tail.php** to **config/tail-settings.php**.
+
+RabbitMQ Connections
+--------------
+By default the library will use the RabbitMQ installation credentials (on a fresh installation the user "guest" is created with password "guest").
+
+To override the default connection or add more servers, edit the RabbitMQ connections file at: **config/tail-settings.php**
 
 ```php
 return array(
