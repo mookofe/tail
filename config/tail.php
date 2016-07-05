@@ -24,13 +24,15 @@ return array(
     'connections' => array(
 
         'default_connection' => array(
-            'host'         => 'localhost',
-            'port'         => 5672,
-            'username'     => 'guest',
-            'password'     => 'guest',
-            'vhost'        => '/',
-            'exchange'     => 'amq.direct',
-            'consumer_tag' => 'consumer',
-        ),      
+            'host'          => 'localhost',
+            'port'          => 5672,
+            'username'      => 'guest',
+            'password'      => 'guest',
+            'vhost'         => '/',
+            'exchange'      => 'amq.direct',
+            'consumer_tag'  => 'consumer',
+            'exchange_type' => 'direct',
+            'content_type'  => 'text/plain'
+        ),
     ),
 );

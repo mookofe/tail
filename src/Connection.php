@@ -7,10 +7,11 @@ use PhpAmqpLib\Connection\AMQPConnection;
 /**
  * Connection class, used to manage connection to the RabbitMQ Server
  *
- * @author Victor Cruz <cruzrosario@gmail.com> 
+ * @author Victor Cruz <cruzrosario@gmail.com>
+ * @author Martin Hilscher <hilscher@jungehaie.com>
  */
 class Connection extends BaseOptions{
-    
+
     /**
      * RabbitMQ server name or IP
      *
@@ -60,7 +61,6 @@ class Connection extends BaseOptions{
      */
     public $channel;
 
-
     /**
      * Connection constructor
      *
@@ -86,11 +86,11 @@ class Connection extends BaseOptions{
     public function open()
     {
         try
-        { 
+        {
             $this->AMQPConnection = new AMQPConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
             $this->channel = $this->AMQPConnection->channel();
             $this->channel->queue_declare($this->queue_name, false, true, false, false);
-            $this->channel->exchange_declare($this->exchange, 'direct', false, true, false);
+            $this->channel->exchange_declare($this->exchange, $this->exchange_type, false, true, false);
             $this->channel->queue_bind($this->queue_name, $this->exchange);
         }
         catch (Exception $e)
@@ -111,5 +111,4 @@ class Connection extends BaseOptions{
         if (isset($this->channel))
             $this->channel->close();
     }
-
 }

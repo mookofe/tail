@@ -10,7 +10,8 @@ use PhpAmqpLib\Connection\AMQPConnection;
 /**
  * Message class, used to manage messages back and forth with the server
  *
- * @author Victor Cruz <cruzrosario@gmail.com> 
+ * @author Victor Cruz <cruzrosario@gmail.com>
+ * @author Martin Hilscher <hilscher@jungehaie.com>
  */
 class Message extends BaseOptions {
 
@@ -63,15 +64,15 @@ class Message extends BaseOptions {
      * @return void
      */
     public function save()
-    { 
+    {
         try
-        { 
+        {
             $connection = new Connection($this->buildConnectionOptions());
             $connection->open();
 
-            $msg = new AMQPMessage($this->message, array('content_type' => 'text/plain', 'delivery_mode' => 2));
+            $msg = new AMQPMessage($this->message, array('content_type' => $this->content_type, 'delivery_mode' => 2));
             $connection->channel->basic_publish($msg, $this->exchange, $this->queue_name);
-            
+
             $connection->close();
         }
         catch (Exception $e)
