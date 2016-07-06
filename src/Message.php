@@ -11,7 +11,6 @@ use PhpAmqpLib\Connection\AMQPConnection;
  * Message class, used to manage messages back and forth with the server
  *
  * @author Victor Cruz <cruzrosario@gmail.com>
- * @author Martin Hilscher <hilscher@jungehaie.com>
  */
 class Message extends BaseOptions {
 

@@ -8,7 +8,6 @@ use Mookofe\Tail\Exceptions\InvalidOptionException;
  * Base class options used to wrap common methods for connection, listening and adding messages
  *
  * @author Victor Cruz <cruzrosario@gmail.com>
- * @author Martin Hilscher <hilscher@jungehaie.com>
  */
 class BaseOptions {
 

@@ -8,7 +8,6 @@ use PhpAmqpLib\Connection\AMQPConnection;
  * Connection class, used to manage connection to the RabbitMQ Server
  *
  * @author Victor Cruz <cruzrosario@gmail.com>
- * @author Martin Hilscher <hilscher@jungehaie.com>
  */
 class Connection extends BaseOptions{
 
