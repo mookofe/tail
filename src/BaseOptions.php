@@ -7,16 +7,16 @@ use Mookofe\Tail\Exceptions\InvalidOptionException;
 /**
  * Base class options used to wrap common methods for connection, listening and adding messages
  *
- * @author Victor Cruz <cruzrosario@gmail.com> 
+ * @author Victor Cruz <cruzrosario@gmail.com>
  */
 class BaseOptions {
-    
+
     /**
      * Valid options array, include all valid options can be set
      *
      * @var array
      */
-    protected $allowedOptions = array('exchange', 'vhost', 'connection_name', 'queue_name');
+    protected $allowedOptions = array('exchange', 'exchange_type', 'vhost', 'connection_name', 'queue_name', 'content_type');
 
     /**
      * Config repository dependency
@@ -31,7 +31,7 @@ class BaseOptions {
      * @var string
      */
     public $exchange;
-    
+
     /**
      * Virtual host name on RabbitMQ Server
      *
@@ -53,6 +53,21 @@ class BaseOptions {
      */
     public $queue_name;
 
+    /**
+     * RabbitMQ AMQP exchange type
+     * should be one of:
+     *      direct, fanout, topic or headers
+     *
+     * @var string
+     */
+    public $exchange_type;
+
+    /**
+     * Content-Type for the messages send over this connection
+     *
+     * @var string
+     */
+    public $content_type;
 
     /**
      * Constructor
@@ -124,7 +139,7 @@ class BaseOptions {
             $connectionOptions['vhost'] = $this->vhost;
         if ($this->exchange)
             $connectionOptions['exchange'] = $this->exchange;
-            
+
         //Queue specific options
         $connectionOptions['queue_name'] = $this->queue_name;
 

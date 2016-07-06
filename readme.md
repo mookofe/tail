@@ -116,6 +116,8 @@ return array(
             'vhost'        => '/',
             'exchange'     => 'default_exchange_name',
             'consumer_tag' => 'consumer',
+            'exchange_type'=> 'direct',
+            'content_type' => 'text/plain'
         ),    
         'other_server' => array(
             'host'         => '192.168.0.10',
@@ -125,7 +127,9 @@ return array(
             'vhost'        => '/',
             'exchange'     => 'default_exchange_name',
             'consumer_tag' => 'consumer',
-        ),   
+            'exchange_type'=> 'fanout',
+            'content_type' => 'application/json'
+        ),
     ),
 );
 ```
@@ -154,6 +158,13 @@ Adding messages to queue:
     Tail::add('queue-name', 'message', array('exchange' => 'exchange_name'));
 ```
 
+**Adding message with different content type**
+
+```php
+    Tail::add('queue-name', '{ 'message' : 'message' }', array('content_type' => 'application/json'));
+```
+
+
 **Adding message with different options**
 
 ```php
@@ -176,6 +187,7 @@ Adding messages to queue:
 	$message->connection_name = 'connection_name_in_config_file';
 	$message->exchange = 'exchange_name';
 	$message->vhost = 'vhost';
+	$message->content_type = 'content/type'
 
 	$message->save();
 ```
