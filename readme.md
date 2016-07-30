@@ -22,7 +22,7 @@ Requirements
 
 Version
 ----
-1.0.4
+1.0.5
 
 
 Installation
@@ -39,13 +39,13 @@ Open your composer.json file and add the following to the require array:
 **Install dependencies**
 
 ```
-$ php composer install
+$ composer install
 ```
 
 Or
 
 ```batch
-$ php composer update
+$ composer update
 ```
 
 Integration
@@ -56,13 +56,13 @@ After installing the package, open your Laravel config file **config/app.php** a
 In the $providers array add the following service provider for this package.
 
 ```batch
-'Mookofe\Tail\ServiceProvider',
+Mookofe\Tail\ServiceProvider::class,
 ```
 
 In the $aliases array add the following facade for this package.
 
 ```batch
-'Tail' => 'Mookofe\Tail\Facades\Tail',
+'Tail' => Mookofe\Tail\Facades\Tail::class,
 ```
 
 Add servers connection file running:

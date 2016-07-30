@@ -134,11 +134,21 @@ class BaseOptions {
 
         $connectionOptions = $this->config->get("tail-settings.connections.$connection_name");
 
+        //Adding default values to exchange_type and content_type to avoid breaking change
+        if (!isset($connectionOptions['exchange_type']))
+            $connectionOptions['exchange_type'] = 'direct';
+        if (!isset($connectionOptions['content_type']))
+            $connectionOptions['content_type'] = 'text/plain';
+
         //Set current instance properties values
         if ($this->vhost)
             $connectionOptions['vhost'] = $this->vhost;
         if ($this->exchange)
             $connectionOptions['exchange'] = $this->exchange;
+        if ($this->exchange_type)
+            $connectionOptions['exchange_type'] = $this->exchange_type;
+        if ($this->content_type)
+            $connectionOptions['content_type'] = $this->content_type;
 
         //Queue specific options
         $connectionOptions['queue_name'] = $this->queue_name;
