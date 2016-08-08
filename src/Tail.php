@@ -8,7 +8,7 @@ use Mookofe\Tail\Listener;
 /**
  * Tail class, used as facade handler
  *
- * @author Victor Cruz <cruzrosario@gmail.com> 
+ * @author Victor Cruz <cruzrosario@gmail.com>
  */
 class Tail {
 
@@ -48,7 +48,7 @@ class Tail {
     public function listen($queue_name, Closure $callback)
     {
         $listener = App::make('Mookofe\Tail\Listener');
-        $listener->listen($queue_name, null, $callback);
+        $listener->listen($queue_name, null, null, null, $callback);
     }
 
     /**
@@ -56,14 +56,16 @@ class Tail {
      *
      * @param string $queue_name  Queue name to listen
      * @param array $options  Options to listen
+     * @param int $qos_prefetch_size  QoS pre-fetch size
+     * @param int $qos_prefetch_count  QoS pre-fetch count
      * @param Closure $closure Function to run for every message
      *
      * @return void
      */
-    public function listenWithOptions($queue_name, array $options, Closure $callback)
+    public function listenWithOptions($queue_name, array $options, $qos_prefetch_size = null, $qos_prefetch_count = null, Closure $callback)
     {
         $listener = App::make('Mookofe\Tail\Listener');
-        $listener->listen($queue_name, $options, $callback);
+        $listener->listen($queue_name, $options, $qos_prefetch_size, $qos_prefetch_count, $callback);
     }
-    
+
 }
