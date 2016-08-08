@@ -41,7 +41,6 @@ class Tail {
      * Listen queue server for given queue name
      *
      * @param string $queue_name  Queue name to listen
-     * @param array $options  Options to listen
      *
      * @return void
      */
@@ -49,6 +48,22 @@ class Tail {
     {
         $listener = App::make('Mookofe\Tail\Listener');
         $listener->listen($queue_name, null, null, null, $callback);
+    }
+
+    /**
+     * Listen queue server for given queue name
+     *
+     * @param string $queue_name  Queue name to listen
+     * @param int $qos_prefetch_size  QoS pre-fetch size
+     * @param int $qos_prefetch_count  QoS pre-fetch count
+     * @param Closure $closure Function to run for every message
+     *
+     * @return void
+     */
+    public function listenWithQoS($queue_name, $qos_prefetch_size = null, $qos_prefetch_count = null, Closure $callback)
+    {
+        $listener = App::make('Mookofe\Tail\Listener');
+        $listener->listen($queue_name, null, $qos_prefetch_size, $qos_prefetch_count, $callback);
     }
 
     /**
