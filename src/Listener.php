@@ -35,8 +35,11 @@ class Listener extends BaseOptions {
      */
     public $empty_queue_timeout = 0;
 
+    /** @var array */
+    protected $failedMsgArr;
 
-   /**
+
+    /**
      * Listener constructor
      *
      * @param array $options  Options array to get validated
@@ -51,6 +54,8 @@ class Listener extends BaseOptions {
 
         if ($options)
             $this->setOptions($options);
+
+        $this->failedMsgArr = [];
     }
 
     /**
@@ -60,6 +65,7 @@ class Listener extends BaseOptions {
      * @param array $options  Options to listen
      * @param Closure $closure Function to run for every message
      *
+     * @throws Exception
      * @return void
      */
     public function listen($queue_name, array $options = null, Closure $closure)
@@ -81,25 +87,35 @@ class Listener extends BaseOptions {
 
             try
             {
-                $closure($msg->body);
-            }            
+                $response = $closure($msg->body);
+            }
             catch (Exception $e)
             {
                 throw $e;
             }
 
-            $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+            if ($response === false) {
+                // Collect failed messages for re-queue
+                $this->failedMsgArr[] = $msg;
+            } else {
+                $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+            }
 
             //Update counters
             $GLOBALS['messages_proccesed']++;
 
-            //Check if necesary to close consumer      
+            //Check if necesary to close consumer
             if ($listenerObject->message_limit && $GLOBALS['messages_proccesed'] >= $listenerObject->message_limit)
                 $msg->delivery_info['channel']->basic_cancel($msg->delivery_info['consumer_tag']);
-            
+
             if ($listenerObject->time && (time()-$GLOBALS['start_time']>= $listenerObject->time))
                 $msg->delivery_info['channel']->basic_cancel($msg->delivery_info['consumer_tag']);
         });
+
+        // Re-queue all failed messages after all messages processed
+        foreach ($this->failedMsgArr as $msg) {
+            $msg->delivery_info['channel']->basic_nack($msg->delivery_info['delivery_tag'], false, true);
+        }
 
         register_shutdown_function(function ($connection) {
             $connection->close();
