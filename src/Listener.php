@@ -7,6 +7,7 @@ use Illuminate\Config\Repository;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 
 
+
 /**
  * Listener Class, used to manage listening between RabbitMQ server
  *
@@ -81,7 +82,8 @@ class Listener extends BaseOptions {
 
             try
             {
-                $closure($msg->body);
+                //return message as an object
+                $closure($msg);
             }            
             catch (Exception $e)
             {

@@ -6,6 +6,7 @@ use Mookofe\Tail\BaseOptions;
 use Illuminate\Config\Repository;
 use PhpAmqpLib\Message\AMQPMessage;
 use PhpAmqpLib\Connection\AMQPConnection;
+use PhpAmqpLib\Wire\AMQPTable;
 
 /**
  * Message class, used to manage messages back and forth with the server
@@ -70,6 +71,13 @@ class Message extends BaseOptions {
             $connection->open();
 
             $msg = new AMQPMessage($this->message, array('content_type' => $this->content_type, 'delivery_mode' => 2));
+            //append headers to a message
+            if (!empty($this->headers)) {
+                $headersTable = new AMQPTable($this->headers);
+                $msg->set('application_headers', $headersTable);
+            }
+            //end header append
+
             $connection->channel->basic_publish($msg, $this->exchange, $this->queue_name);
 
             $connection->close();
