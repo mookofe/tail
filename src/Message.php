@@ -72,7 +72,7 @@ class Message extends BaseOptions {
 
             $msg = new AMQPMessage($this->message, array('content_type' => $this->content_type, 'delivery_mode' => 2));
             //append headers to a message
-            if (!empty($this->headers)) {
+            if (isset($this->headers)) {
                 $headersTable = new AMQPTable($this->headers);
                 $msg->set('application_headers', $headersTable);
             }
