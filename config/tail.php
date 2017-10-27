@@ -33,9 +33,14 @@ return array(
             'consumer_tag'  => 'consumer',
             'exchange_type' => 'direct',
             'content_type'  => 'text/plain',
-            'ssl_connect'   => false,
-            'rabbitmq_cacert_pem'   => '',
-            'rabbitmq_loacl_cert_pem' => ''
+            'ssl_connect'  => false,
+            'ssl_options'  => [
+                'cafile' => '/opt/certs/ca.cert.pem',
+                'local_cert' => '/opt/certs/local_cert.pem',
+                'verify_peer' => true,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
         ),
     ),
 );

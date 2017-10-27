@@ -16,7 +16,7 @@ class BaseOptions {
      *
      * @var array
      */
-    protected $allowedOptions = array('exchange', 'exchange_type', 'vhost', 'connection_name', 'queue_name', 'content_type', 'ssl_connect', 'rabbitmq_cacert_pem', 'rabbitmq_loacl_cert_pem');
+    protected $allowedOptions = array('exchange', 'exchange_type', 'vhost', 'connection_name', 'queue_name', 'content_type', 'ssl_connect', 'ssl_options');
 
     /**
      * Config repository dependency
@@ -76,18 +76,11 @@ class BaseOptions {
     public $ssl_connect;
 
     /**
-     * RabbitMQ cacert
+     * RabbitMQ ssl options
      *
-     * @var string
+     * @var array
      */
-    public $rabbitmq_cacert_pem;
-
-    /**
-     * RabbitMQ loacl cert
-     *
-     * @var string
-     */
-    public $rabbitmq_local_cert_pem;
+    public $ssl_options;
 
     /**
      * Constructor

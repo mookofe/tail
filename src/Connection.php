@@ -1,6 +1,7 @@
 <?php namespace Foolkaka\Tail;
 
 use Exception;
+use Foolkaka\Tail\BaseOptions;
 
 /**
  * Connection class, used to manage connection to the RabbitMQ Server
@@ -47,44 +48,23 @@ class Connection extends BaseOptions{
     /**
      * RabbitMQ AMQP Connection
      *
-     * @var PhpAmqpLib\Connection\AMQPConnection
+     * @var \PhpAmqpLib\Connection\AMQPConnection
      */
     public $AMQPConnection;
 
     /**
      * RabbitMQ AMQP channel
      *
-     * @var PhpAmqpLib\Connection\AMQPConnection
+     * @var \PhpAmqpLib\Connection\AMQPConnection
      */
     public $channel;
-
-    /**
-     * RabbitMQ server ssl connect
-     *
-     * @var boolean
-     */
-    public $ssl_connect;
-
-    /**
-     * RabbitMQ cacert
-     *
-     * @var string
-     */
-    public $rabbitmq_cacert_pem;
-
-    /**
-     * RabbitMQ loacl cert
-     *
-     * @var string
-     */
-    public $rabbitmq_local_cert_pem;
 
     /**
      * Connection constructor
      *
      * @param array $options  Options array to set connection
      *
-     * @return Foolkaka\Tail\Connection
+     * @return \Foolkaka\Tail\Connection
      */
     public function __construct(array $options = null)
     {
@@ -106,14 +86,16 @@ class Connection extends BaseOptions{
         try
         {
             if ($this->ssl_connect) {
-                $sslOptions = array(
-                    'cafile' => $this->rabbitmq_cacert_pem,
-                    'local_cert' => $this->rabbitmq_local_cert_pem,
-                    'verify_peer' => true
-                );
-                $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPSSLConnection($this->host, $this->port, $this->username, $this->password, $this->vhost, $sslOptions);
+                $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPSSLConnection(
+                    $this->host,
+                    $this->port,
+                    $this->username,
+                    $this->password,
+                    $this->vhost,
+                    $this->ssl_options,
+                    ['connection_timeout' => 10, 'read_write_timeout' => 5]);
             } else {
-                $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
+                $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPStreamConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
             }
             $this->channel = $this->AMQPConnection->channel();
             $this->channel->queue_declare($this->queue_name, false, true, false, false);
