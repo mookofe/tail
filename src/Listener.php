@@ -76,7 +76,7 @@ class Listener extends BaseOptions {
 
         $listenerObject = $this;
 
-        $connection->channel->basic_consume($this->queue_name, $connection->consumer_tag, false, false, false, false, function ($msg) use ($closure, $listenerObject) {
+        $connection->channel->basic_consume($this->queue_name, $connection->consumer_tag . getmypid(), false, false, false, false, function ($msg) use ($closure, $listenerObject) {
 
             try
             {
