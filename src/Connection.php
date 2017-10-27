@@ -92,14 +92,13 @@ class Connection extends BaseOptions{
                     $this->username,
                     $this->password,
                     $this->vhost,
-                    $this->ssl_options,
-                    ['connection_timeout' => 180, 'read_write_timeout' => 60]);
+                    $this->ssl_options);
             } else {
                 $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPStreamConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
             }
             $this->channel = $this->AMQPConnection->channel();
-            $this->channel->queue_declare($this->queue_name, false, false, false, true);
-            $this->channel->exchange_declare($this->exchange, $this->exchange_type, false, false, true);
+            $this->channel->queue_declare($this->queue_name, false, true, false, false);
+            $this->channel->exchange_declare($this->exchange, $this->exchange_type, false, true, false);
             $this->channel->queue_bind($this->queue_name, $this->exchange);
         } catch (Exception $e) {
             throw new Exception($e);
