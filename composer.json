@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mookofe\\Tail\\": "src/"
+            "Foolkaka\\Tail\\": "src/"
         }
     },    
     "minimum-stability": "stable"
