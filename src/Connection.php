@@ -93,7 +93,7 @@ class Connection extends BaseOptions{
                     $this->password,
                     $this->vhost,
                     $this->ssl_options,
-                    ['connection_timeout' => 10, 'read_write_timeout' => 5]);
+                    ['connection_timeout' => 180, 'read_write_timeout' => 60]);
             } else {
                 $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPStreamConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
             }
