@@ -111,9 +111,9 @@ class Connection extends BaseOptions{
                     'local_cert' => $this->rabbitmq_local_cert_pem,
                     'verify_peer' => true
                 );
-                $this->AMQPConnection = new PhpAmqpLib\Connection\AMQPSSLConnection($this->host, $this->port, $this->username, $this->password, $this->vhost, $sslOptions);
+                $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPSSLConnection($this->host, $this->port, $this->username, $this->password, $this->vhost, $sslOptions);
             } else {
-                $this->AMQPConnection = new PhpAmqpLib\Connection\AMQPConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
+                $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
             }
             $this->channel = $this->AMQPConnection->channel();
             $this->channel->queue_declare($this->queue_name, false, true, false, false);
