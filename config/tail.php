@@ -32,7 +32,15 @@ return array(
             'exchange'      => 'amq.direct',
             'consumer_tag'  => 'consumer',
             'exchange_type' => 'direct',
-            'content_type'  => 'text/plain'
+            'content_type'  => 'text/plain',
+            'ssl_connect'  => false,
+            'ssl_options'  => [
+                'cafile' => '/opt/certs/ca.cert.pem',
+                'local_cert' => '/opt/certs/local_cert.pem',
+                'verify_peer' => true,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
         ),
     ),
 );

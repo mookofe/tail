@@ -1,4 +1,4 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 /**
  * Lumen Service Provider
@@ -25,18 +25,18 @@ class LumenServiceProvider extends \Illuminate\Support\ServiceProvider {
     public function register()
     {
         //Bind config
-        $this->app->bind('Mookofe\Tail\Message', function ($app) {
+        $this->app->bind('Foolkaka\Tail\Message', function ($app) {
             return new Message($app->config);
         });
-        $this->app->bind('Mookofe\Tail\Listener', function ($app) {
+        $this->app->bind('Foolkaka\Tail\Listener', function ($app) {
             return new Listener($app->config);
         });
 
         //Register Facade
-        $this->app->bind('Tail', 'Mookofe\Tail\Tail');
+        $this->app->bind('Tail', 'Foolkaka\Tail\Tail');
 
         if (!class_exists('Tail')) {
-            class_alias('Mookofe\Tail\Facades\Tail', 'Tail');
+            class_alias('Foolkaka\Tail\Facades\Tail', 'Tail');
         }
 
         //Add App facade if is lumen >5.2

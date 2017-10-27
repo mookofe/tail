@@ -1,8 +1,8 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 use Config;
 use Illuminate\Config\Repository;
-use Mookofe\Tail\Exceptions\InvalidOptionException;
+use Foolkaka\Tail\Exceptions\InvalidOptionException;
 
 /**
  * Base class options used to wrap common methods for connection, listening and adding messages
@@ -16,7 +16,7 @@ class BaseOptions {
      *
      * @var array
      */
-    protected $allowedOptions = array('exchange', 'exchange_type', 'vhost', 'connection_name', 'queue_name', 'content_type');
+    protected $allowedOptions = array('exchange', 'exchange_type', 'vhost', 'connection_name', 'queue_name', 'content_type', 'ssl_connect', 'ssl_options');
 
     /**
      * Config repository dependency
@@ -70,11 +70,24 @@ class BaseOptions {
     public $content_type;
 
     /**
+     * RabbitMQ ssl connect
+     * @var boolean
+     */
+    public $ssl_connect;
+
+    /**
+     * RabbitMQ ssl options
+     *
+     * @var array
+     */
+    public $ssl_options;
+
+    /**
      * Constructor
      *
      * @param Illuminate\Config\Repository $config  Config dependency
      *
-     * @return Mookofe\Tail\BaseOptions
+     * @return Foolkaka\Tail\BaseOptions
      */
     public function __construct(Repository $config)
     {
@@ -86,7 +99,7 @@ class BaseOptions {
      *
      * @param array $options  Options array to get validated
      *
-     * @return Mookofe\Tail\BaseOptions
+     * @return Foolkaka\Tail\BaseOptions
      */
     public function validateOptions(array $options)
     {
@@ -104,7 +117,7 @@ class BaseOptions {
      *
      * @param array $options  Options with values to be set
      *
-     * @return Mookofe\Tail\BaseOptions
+     * @return Foolkaka\Tail\BaseOptions
      */
     public function setOptions(array $options)
     {

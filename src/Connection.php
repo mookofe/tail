@@ -1,8 +1,7 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 use Exception;
-use Mookofe\Tail\BaseOptions;
-use PhpAmqpLib\Connection\AMQPConnection;
+use Foolkaka\Tail\BaseOptions;
 
 /**
  * Connection class, used to manage connection to the RabbitMQ Server
@@ -49,14 +48,14 @@ class Connection extends BaseOptions{
     /**
      * RabbitMQ AMQP Connection
      *
-     * @var PhpAmqpLib\Connection\AMQPConnection
+     * @var \PhpAmqpLib\Connection\AMQPConnection
      */
     public $AMQPConnection;
 
     /**
      * RabbitMQ AMQP channel
      *
-     * @var PhpAmqpLib\Connection\AMQPConnection
+     * @var \PhpAmqpLib\Connection\AMQPConnection
      */
     public $channel;
 
@@ -65,7 +64,7 @@ class Connection extends BaseOptions{
      *
      * @param array $options  Options array to set connection
      *
-     * @return Mookofe\Tail\Connection
+     * @return \Foolkaka\Tail\Connection
      */
     public function __construct(array $options = null)
     {
@@ -86,14 +85,22 @@ class Connection extends BaseOptions{
     {
         try
         {
-            $this->AMQPConnection = new AMQPConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
+            if ($this->ssl_connect) {
+                $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPSSLConnection(
+                    $this->host,
+                    $this->port,
+                    $this->username,
+                    $this->password,
+                    $this->vhost,
+                    $this->ssl_options);
+            } else {
+                $this->AMQPConnection = new \PhpAmqpLib\Connection\AMQPStreamConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
+            }
             $this->channel = $this->AMQPConnection->channel();
             $this->channel->queue_declare($this->queue_name, false, true, false, false);
             $this->channel->exchange_declare($this->exchange, $this->exchange_type, false, true, false);
             $this->channel->queue_bind($this->queue_name, $this->exchange);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             throw new Exception($e);
         }
     }

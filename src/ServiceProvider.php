@@ -1,4 +1,4 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 /**
  * Service Provider
@@ -33,7 +33,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
         );
         
         //Register Facade
-        $this->app->bind('Tail', 'Mookofe\Tail\Tail');
+        $this->app->bind('Tail', 'Foolkaka\Tail\Tail');
     }
 
     /**

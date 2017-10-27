@@ -1,9 +1,9 @@
 {
-    "name": "mookofe/tail",
+    "name": "foolkaka/tail",
     "description": "RabbitMQ and PHP client for Laravel and Lumen that allows you to add and listen queues messages just simple",
-    "keywords": ["laravel5", "laravel", "rabbitmq", "queue", "library", "package", "client", "Victor Cruz", "mookofe" ],
+    "keywords": ["laravel5", "laravel", "rabbitmq", "queue", "library", "package", "client", "Victor Cruz", "foolkaka" ],
     "license": "MIT",
-    "version": "v1.0.5",
+    "version": "v1.0.8",
     "authors": [
         {
             "name": "Victor Cruz",
@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.7",
+        "php": ">=5.5.9",
         "php-amqplib/php-amqplib": "2.*",
         "illuminate/support": "5.*"
     },
@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mookofe\\Tail\\": "src/"
+            "Foolkaka\\Tail\\": "src/"
         }
     },    
     "minimum-stability": "stable"

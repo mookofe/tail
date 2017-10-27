@@ -1,8 +1,7 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 use Closure;
 use Exception;
-use Mookofe\Tail\BaseOptions;
 use Illuminate\Config\Repository;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 
@@ -41,7 +40,7 @@ class Listener extends BaseOptions {
      *
      * @param array $options  Options array to get validated
      *
-     * @return Mookofe\Tail\Listener
+     * @return Foolkaka\Tail\Listener
      */
     public function __construct(Repository $config, array $options = NULL)
     {

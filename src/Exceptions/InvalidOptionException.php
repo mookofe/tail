@@ -1,4 +1,4 @@
-<?php namespace Mookofe\Tail\Exceptions;
+<?php namespace Foolkaka\Tail\Exceptions;
 
 use Exception;
 
