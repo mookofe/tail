@@ -2,7 +2,6 @@
 
 use Closure;
 use Exception;
-use Foolkaka\Tail\BaseOptions;
 use Illuminate\Config\Repository;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 
@@ -41,7 +40,7 @@ class Listener extends BaseOptions {
      *
      * @param array $options  Options array to get validated
      *
-     * @return Mookofe\Tail\Listener
+     * @return Foolkaka\Tail\Listener
      */
     public function __construct(Repository $config, array $options = NULL)
     {

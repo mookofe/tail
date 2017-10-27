@@ -2,8 +2,6 @@
 
 use App;
 use Closure;
-use Foolkaka\Tail\Message;
-use Foolkaka\Tail\Listener;
 
 /**
  * Tail class, used as facade handler
@@ -23,18 +21,18 @@ class Tail {
      */
     public function add($queueName, $message, array $options = null)
     {
-        $msg = App::make('Foolkaka\Tail\Message');
+        $msg = App::make(Message::class);
         $msg->add($queueName, $message, $options);
     }
 
     /**
      * Create new blank message instance
      *
-     * @return Mookofe\Tail\Message
+     * @return Foolkaka\Tail\Message
      */
     public function createMessage()
     {
-        return App::make('Foolkaka\Tail\Message');
+        return App::make(Message::class);
     }
 
     /**
@@ -47,7 +45,7 @@ class Tail {
      */
     public function listen($queue_name, Closure $callback)
     {
-        $listener = App::make('Foolkaka\Tail\Listener');
+        $listener = App::make(Listener::class);
         $listener->listen($queue_name, null, $callback);
     }
 
@@ -62,7 +60,7 @@ class Tail {
      */
     public function listenWithOptions($queue_name, array $options, Closure $callback)
     {
-        $listener = App::make('Foolkaka\Tail\Listener');
+        $listener = App::make(Listener::class);
         $listener->listen($queue_name, $options, $callback);
     }
     

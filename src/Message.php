@@ -1,11 +1,8 @@
 <?php namespace Foolkaka\Tail;
 
 use Config;
-use Foolkaka\Tail\Connection;
-use Foolkaka\Tail\BaseOptions;
 use Illuminate\Config\Repository;
 use PhpAmqpLib\Message\AMQPMessage;
-use PhpAmqpLib\Connection\AMQPConnection;
 
 /**
  * Message class, used to manage messages back and forth with the server

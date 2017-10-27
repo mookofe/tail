@@ -94,7 +94,7 @@ class BaseOptions {
      *
      * @param Illuminate\Config\Repository $config  Config dependency
      *
-     * @return Mookofe\Tail\BaseOptions
+     * @return Foolkaka\Tail\BaseOptions
      */
     public function __construct(Repository $config)
     {
@@ -106,7 +106,7 @@ class BaseOptions {
      *
      * @param array $options  Options array to get validated
      *
-     * @return Mookofe\Tail\BaseOptions
+     * @return Foolkaka\Tail\BaseOptions
      */
     public function validateOptions(array $options)
     {
@@ -124,7 +124,7 @@ class BaseOptions {
      *
      * @param array $options  Options with values to be set
      *
-     * @return Mookofe\Tail\BaseOptions
+     * @return Foolkaka\Tail\BaseOptions
      */
     public function setOptions(array $options)
     {

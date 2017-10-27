@@ -1,7 +1,6 @@
 <?php namespace Foolkaka\Tail;
 
 use Exception;
-use Foolkaka\Tail\BaseOptions;
 
 /**
  * Connection class, used to manage connection to the RabbitMQ Server
@@ -85,7 +84,7 @@ class Connection extends BaseOptions{
      *
      * @param array $options  Options array to set connection
      *
-     * @return Mookofe\Tail\Connection
+     * @return Foolkaka\Tail\Connection
      */
     public function __construct(array $options = null)
     {
