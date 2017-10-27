@@ -1,9 +1,9 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 use App;
 use Closure;
-use Mookofe\Tail\Message;
-use Mookofe\Tail\Listener;
+use Foolkaka\Tail\Message;
+use Foolkaka\Tail\Listener;
 
 /**
  * Tail class, used as facade handler
@@ -23,7 +23,7 @@ class Tail {
      */
     public function add($queueName, $message, array $options = null)
     {
-        $msg = App::make('Mookofe\Tail\Message');
+        $msg = App::make('Foolkaka\Tail\Message');
         $msg->add($queueName, $message, $options);
     }
 
@@ -34,7 +34,7 @@ class Tail {
      */
     public function createMessage()
     {
-        return App::make('Mookofe\Tail\Message');
+        return App::make('Foolkaka\Tail\Message');
     }
 
     /**
@@ -47,7 +47,7 @@ class Tail {
      */
     public function listen($queue_name, Closure $callback)
     {
-        $listener = App::make('Mookofe\Tail\Listener');
+        $listener = App::make('Foolkaka\Tail\Listener');
         $listener->listen($queue_name, null, $callback);
     }
 
@@ -62,7 +62,7 @@ class Tail {
      */
     public function listenWithOptions($queue_name, array $options, Closure $callback)
     {
-        $listener = App::make('Mookofe\Tail\Listener');
+        $listener = App::make('Foolkaka\Tail\Listener');
         $listener->listen($queue_name, $options, $callback);
     }
     

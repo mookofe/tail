@@ -1,11 +1,11 @@
-mookofe/tail
+foolkaka/tail
 =========
 
 RabbitMQ and PHP client for Laravel and Lumen that allows you to add and listen queues messages just simple.
 
-[![Build Status](https://travis-ci.org/mookofe/tail.svg?branch=master)](https://travis-ci.org/mookofe/tail)
-[![Latest Stable Version](https://poser.pugx.org/mookofe/tail/v/stable.svg)](https://packagist.org/packages/mookofe/tail)
-[![License](https://poser.pugx.org/mookofe/tail/license.svg)](https://packagist.org/packages/mookofe/tail)
+[![Build Status](https://travis-ci.org/foolkaka/tail.svg?branch=master)](https://travis-ci.org/foolkaka/tail)
+[![Latest Stable Version](https://poser.pugx.org/foolkaka/tail/v/stable.svg)](https://packagist.org/packages/foolkaka/tail)
+[![License](https://poser.pugx.org/foolkaka/tail/license.svg)](https://packagist.org/packages/foolkaka/tail)
 
 Features
 ----
@@ -22,7 +22,7 @@ Requirements
 
 Version
 ----
-1.0.5
+1.0.6
 
 
 Installation
@@ -33,7 +33,7 @@ Installation
 Open your composer.json file and add the following to the require array: 
 
 ```js
-"mookofe/tail": "1.*"
+"foolkaka/tail": "1.*"
 ```
 
 **Install dependencies**
@@ -56,19 +56,19 @@ After installing the package, open your Laravel config file **config/app.php** a
 In the $providers array add the following service provider for this package.
 
 ```batch
-Mookofe\Tail\ServiceProvider::class,
+Foolkaka\Tail\ServiceProvider::class,
 ```
 
 In the $aliases array add the following facade for this package.
 
 ```batch
-'Tail' => Mookofe\Tail\Facades\Tail::class,
+'Tail' => Foolkaka\Tail\Facades\Tail::class,
 ```
 
 Add servers connection file running:
 
 ```batch
-$ php artisan vendor:publish --provider="Mookofe\Tail\ServiceProvider" --tag="config"
+$ php artisan vendor:publish --provider="Foolkaka\Tail\ServiceProvider" --tag="config"
 ```
 
 ### Lumen
@@ -84,7 +84,7 @@ Register the Lumen Service Provider in **bootstrap/app.php**:
 //...
 
 $app->configure('tail-settings');
-$app->register(Mookofe\Tail\LumenServiceProvider::class);
+$app->register(Foolkaka\Tail\LumenServiceProvider::class);
 
 //...
 ```
@@ -93,7 +93,7 @@ Make sure sure `$app->withFacades();` is uncomment in your **bootstrap/app.php**
 
 
 Create a **config** folder in the root directory of your Lumen application and copy the content
-from **vendor/mookofe/tail/config/tail.php** to **config/tail-settings.php**.
+from **vendor/foolkaka/tail/config/tail.php** to **config/tail-settings.php**.
 
 RabbitMQ Connections
 --------------
@@ -117,7 +117,10 @@ return array(
             'exchange'     => 'default_exchange_name',
             'consumer_tag' => 'consumer',
             'exchange_type'=> 'direct',
-            'content_type' => 'text/plain'
+            'content_type' => 'text/plain',
+            'ssl_connect'   => false,
+            'rabbitmq_cacert_pem'   => '',
+            'rabbitmq_loacl_cert_pem' => ''
         ),    
         'other_server' => array(
             'host'         => '192.168.0.10',
@@ -128,7 +131,10 @@ return array(
             'exchange'     => 'default_exchange_name',
             'consumer_tag' => 'consumer',
             'exchange_type'=> 'fanout',
-            'content_type' => 'application/json'
+            'content_type' => 'application/json',
+            'ssl_connect'   => false,
+            'rabbitmq_cacert_pem'   => '',
+            'rabbitmq_loacl_cert_pem' => ''
         ),
     ),
 );

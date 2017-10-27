@@ -1,8 +1,7 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 use Exception;
-use Mookofe\Tail\BaseOptions;
-use PhpAmqpLib\Connection\AMQPConnection;
+use Foolkaka\Tail\BaseOptions;
 
 /**
  * Connection class, used to manage connection to the RabbitMQ Server
@@ -61,6 +60,27 @@ class Connection extends BaseOptions{
     public $channel;
 
     /**
+     * RabbitMQ server ssl connect
+     *
+     * @var boolean
+     */
+    public $ssl_connect;
+
+    /**
+     * RabbitMQ cacert
+     *
+     * @var string
+     */
+    public $rabbitmq_cacert_pem;
+
+    /**
+     * RabbitMQ loacl cert
+     *
+     * @var string
+     */
+    public $rabbitmq_local_cert_pem;
+
+    /**
      * Connection constructor
      *
      * @param array $options  Options array to set connection
@@ -86,14 +106,21 @@ class Connection extends BaseOptions{
     {
         try
         {
-            $this->AMQPConnection = new AMQPConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
+            if ($this->ssl_connect) {
+                $sslOptions = array(
+                    'cafile' => $this->rabbitmq_cacert_pem,
+                    'local_cert' => $this->rabbitmq_local_cert_pem,
+                    'verify_peer' => true
+                );
+                $this->AMQPConnection = new PhpAmqpLib\Connection\AMQPSSLConnection($this->host, $this->port, $this->username, $this->password, $this->vhost, $sslOptions);
+            } else {
+                $this->AMQPConnection = new PhpAmqpLib\Connection\AMQPConnection($this->host, $this->port, $this->username, $this->password, $this->vhost);
+            }
             $this->channel = $this->AMQPConnection->channel();
             $this->channel->queue_declare($this->queue_name, false, true, false, false);
             $this->channel->exchange_declare($this->exchange, $this->exchange_type, false, true, false);
             $this->channel->queue_bind($this->queue_name, $this->exchange);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             throw new Exception($e);
         }
     }

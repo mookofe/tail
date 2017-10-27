@@ -1,7 +1,7 @@
-<?php namespace Mookofe\Tail\Test;
+<?php namespace Foolkaka\Tail\Test;
 
 use Mockery;
-use Mookofe\Tail\BaseOptions;
+use Foolkaka\Tail\BaseOptions;
 
 
 /**
@@ -33,11 +33,11 @@ class testBaseOptions extends \PHPUnit_Framework_TestCase
         $result = $baseOptions->validateOptions($options);
 
         //Asserts
-        $this->assertInstanceOf('Mookofe\Tail\BaseOptions', $result);
+        $this->assertInstanceOf('Foolkaka\Tail\BaseOptions', $result);
     }
 
     /**
-     * @expectedException     Mookofe\Tail\Exceptions\InvalidOptionException
+     * @expectedException     Foolkaka\Tail\Exceptions\InvalidOptionException
      */
     public function testValidateOptionsInvalid()
     {

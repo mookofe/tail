@@ -1,4 +1,4 @@
-<?php namespace Mookofe\Tail\Facades;
+<?php namespace Foolkaka\Tail\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

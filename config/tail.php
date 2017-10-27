@@ -32,7 +32,10 @@ return array(
             'exchange'      => 'amq.direct',
             'consumer_tag'  => 'consumer',
             'exchange_type' => 'direct',
-            'content_type'  => 'text/plain'
+            'content_type'  => 'text/plain',
+            'ssl_connect'   => false,
+            'rabbitmq_cacert_pem'   => '',
+            'rabbitmq_loacl_cert_pem' => ''
         ),
     ),
 );

@@ -1,8 +1,8 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 use Config;
 use Illuminate\Config\Repository;
-use Mookofe\Tail\Exceptions\InvalidOptionException;
+use Foolkaka\Tail\Exceptions\InvalidOptionException;
 
 /**
  * Base class options used to wrap common methods for connection, listening and adding messages
@@ -16,7 +16,7 @@ class BaseOptions {
      *
      * @var array
      */
-    protected $allowedOptions = array('exchange', 'exchange_type', 'vhost', 'connection_name', 'queue_name', 'content_type');
+    protected $allowedOptions = array('exchange', 'exchange_type', 'vhost', 'connection_name', 'queue_name', 'content_type', 'ssl_connect', 'rabbitmq_cacert_pem', 'rabbitmq_loacl_cert_pem');
 
     /**
      * Config repository dependency
@@ -68,6 +68,26 @@ class BaseOptions {
      * @var string
      */
     public $content_type;
+
+    /**
+     * RabbitMQ ssl connect
+     * @var boolean
+     */
+    public $ssl_connect;
+
+    /**
+     * RabbitMQ cacert
+     *
+     * @var string
+     */
+    public $rabbitmq_cacert_pem;
+
+    /**
+     * RabbitMQ loacl cert
+     *
+     * @var string
+     */
+    public $rabbitmq_local_cert_pem;
 
     /**
      * Constructor

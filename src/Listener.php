@@ -1,8 +1,8 @@
-<?php namespace Mookofe\Tail;
+<?php namespace Foolkaka\Tail;
 
 use Closure;
 use Exception;
-use Mookofe\Tail\BaseOptions;
+use Foolkaka\Tail\BaseOptions;
 use Illuminate\Config\Repository;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 
