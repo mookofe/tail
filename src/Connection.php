@@ -105,9 +105,9 @@ class Connection extends BaseOptions{
      */
     public function close()
     {
-        if (isset($this->AMQPConnection))
-            $this->AMQPConnection->close();
         if (isset($this->channel))
             $this->channel->close();
+        if (isset($this->AMQPConnection))
+            $this->AMQPConnection->close();
     }
 }
