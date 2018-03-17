@@ -109,26 +109,40 @@ return array(
     'connections' => array(
 
         'default_connection' => array(
-            'host'         => 'localhost',
-            'port'         => 5672,
-            'username'     => 'guest',
-            'password'     => 'guest',
-            'vhost'        => '/',
-            'exchange'     => 'default_exchange_name',
-            'consumer_tag' => 'consumer',
-            'exchange_type'=> 'direct',
-            'content_type' => 'text/plain'
+            'host'                => 'localhost',
+            'port'                => 5672,
+            'username'            => 'guest',
+            'password'            => 'guest',
+            'vhost'               => '/',
+            'ssl_context_options' => null,
+            'connection_timeout'  => 3,
+            'read_write_timeout'  => 50,   //should be at least 2x heartbeat (if using heartbeat)
+            'keepalive'           => true, //requires php-amqplib v2.4.1+
+            'heartbeat'           => 25,   //requires php-amqplib v2.4.1+
+            'exchange'            => 'default_exchange_name',
+            'consumer_tag'        => 'consumer',
+            'exchange_type'       => 'direct',
+            'content_type'        => 'text/plain'
         ),    
         'other_server' => array(
-            'host'         => '192.168.0.10',
-            'port'         => 5672,
-            'username'     => 'guest',
-            'password'     => 'guest',
-            'vhost'        => '/',
-            'exchange'     => 'default_exchange_name',
-            'consumer_tag' => 'consumer',
-            'exchange_type'=> 'fanout',
-            'content_type' => 'application/json'
+            'host'                => '192.168.0.10',
+            'port'                => 5672,
+            'username'            => 'guest',
+            'password'            => 'guest',
+            'vhost'               => '/',
+            'ssl_context_options' => array(
+                'capath'      => '/etc/ssl/certs',
+                'cafile'      => './startssl_ca.pem',
+                'verify_peer' => true,
+            ),
+            'connection_timeout'  => 3.0,
+            'read_write_timeout'  => 3.0,
+            'keepalive'           => false,
+            'heartbeat'           => 0,
+            'exchange'            => 'default_exchange_name',
+            'consumer_tag'        => 'consumer',
+            'exchange_type'       => 'fanout',
+            'content_type'        => 'application/json'
         ),
     ),
 );

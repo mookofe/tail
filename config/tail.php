@@ -24,15 +24,20 @@ return array(
     'connections' => array(
 
         'default_connection' => array(
-            'host'          => 'localhost',
-            'port'          => 5672,
-            'username'      => 'guest',
-            'password'      => 'guest',
-            'vhost'         => '/',
-            'exchange'      => 'amq.direct',
-            'consumer_tag'  => 'consumer',
-            'exchange_type' => 'direct',
-            'content_type'  => 'text/plain'
+            'host'                => 'localhost',
+            'port'                => 5672,
+            'username'            => 'guest',
+            'password'            => 'guest',
+            'vhost'               => '/',
+            'ssl_context_options' => null,
+            'connection_timeout'  => 3.0,
+            'read_write_timeout'  => 3.0,
+            'keepalive'           => false,
+            'heartbeat'           => 0,
+            'exchange'            => 'amq.direct',
+            'consumer_tag'        => 'consumer',
+            'exchange_type'       => 'direct',
+            'content_type'        => 'text/plain',
         ),
     ),
 );
