@@ -10,7 +10,7 @@ use PhpAmqpLib\Exception\AMQPTimeoutException;
 /**
  * Listener Class, used to manage listening between RabbitMQ server
  *
- * @author Victor Cruz <cruzrosario@gmail.com> 
+ * @author Victor Cruz <cruzrosario@gmail.com>
  */
 class Listener extends BaseOptions {
 
@@ -62,12 +62,12 @@ class Listener extends BaseOptions {
      *
      * @return void
      */
-    public function listen($queue_name, array $options = null, Closure $closure)
+    public function listen($queue_name, array $options = null, $qos_prefetch_size = null, $qos_prefetch_count = null, Closure $closure)
     {
         $this->queue_name = $queue_name;
 
         if ($options)
-            $this->setOptions($options);        
+            $this->setOptions($options);
 
         $GLOBALS['messages_proccesed'] = 0;
         $GLOBALS['start_time'] = time();
@@ -77,12 +77,18 @@ class Listener extends BaseOptions {
 
         $listenerObject = $this;
 
+        $connection->channel->basic_qos(
+            $qos_prefetch_size,
+            $qos_prefetch_count,
+            false
+        );
+
         $connection->channel->basic_consume($this->queue_name, $connection->consumer_tag, false, false, false, false, function ($msg) use ($closure, $listenerObject) {
 
             try
             {
                 $closure($msg->body);
-            }            
+            }
             catch (Exception $e)
             {
                 throw $e;
@@ -93,10 +99,10 @@ class Listener extends BaseOptions {
             //Update counters
             $GLOBALS['messages_proccesed']++;
 
-            //Check if necesary to close consumer      
+            //Check if necesary to close consumer
             if ($listenerObject->message_limit && $GLOBALS['messages_proccesed'] >= $listenerObject->message_limit)
                 $msg->delivery_info['channel']->basic_cancel($msg->delivery_info['consumer_tag']);
-            
+
             if ($listenerObject->time && (time()-$GLOBALS['start_time']>= $listenerObject->time))
                 $msg->delivery_info['channel']->basic_cancel($msg->delivery_info['consumer_tag']);
         });
@@ -119,7 +125,7 @@ class Listener extends BaseOptions {
         catch (Exception $e)
         {
             throw $e;
-        }        
+        }
     }
-          
+
 }
