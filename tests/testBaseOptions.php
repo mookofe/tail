@@ -27,7 +27,7 @@ class testBaseOptions extends TestCase
     }
 
     /**
-     * @expectedException     Mookofe\Tail\Exceptions\InvalidOptionException
+     * ExpectedException     Mookofe\Tail\Exceptions\InvalidOptionException
      */
     public function testValidateOptionsInvalid()
     {
