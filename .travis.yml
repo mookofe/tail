@@ -6,7 +6,7 @@ matrix:
       env: LARAVEL='5.4.*'
     - php: 7.2
       env: LARAVEL='6.0'
-
+      
 before_install:
   - travis_retry composer self-update
 
