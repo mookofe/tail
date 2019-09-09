@@ -37,6 +37,9 @@ class testBaseOptions extends TestCase
         $baseOptions = new BaseOptions($input);
         $result = $baseOptions->validateOptions($options);
 
+        //Assert
+        $this->expectException($result);
+
         Mockery::close();
     }
 
@@ -67,7 +70,7 @@ class testBaseOptions extends TestCase
         $options = $baseOptions->buildConnectionOptions();
 
         //Asserts
-        $this->assertInternalType('array', $options);
+        $this->assertIsArray($options);
         $this->assertArrayHasKey('queue_name', $options);
 
         Mockery::close();
