@@ -27,7 +27,7 @@ class testBaseOptions extends TestCase
     }
 
     /**
-     * ExpectedException     Mookofe\Tail\Exceptions\InvalidOptionException
+     * @expectedException     Mookofe\Tail\Exceptions\InvalidOptionException
      */
     public function testValidateOptionsInvalid()
     {
@@ -36,9 +36,6 @@ class testBaseOptions extends TestCase
         $options = array('invalid_field' => 'this_is_invalid_field');
         $baseOptions = new BaseOptions($input);
         $result = $baseOptions->validateOptions($options);
-
-        //Assert
-        $this->expectException($result);
 
         Mockery::close();
     }
