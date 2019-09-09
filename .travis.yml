@@ -17,5 +17,5 @@ install:
 
 # script: build.sh
 script:
-  - if [[ $LARAVEL == '6.0' ]]; then phpunit --configuration phpunit.xml --coverage-text --filter=testBaseOptions
-  - if [[ $LARAVEL != '6.0' ]]; then phpunit --configuration phpunit.xml --coverage-text --filter=testBaseOptionsOld
+  - if [[ $LARAVEL == '6.0' ]]; then phpunit --configuration phpunit.xml --coverage-text --filter=testBaseOptions; fi
+  - if [[ $LARAVEL != '6.0' ]]; then phpunit --configuration phpunit.xml --coverage-text --filter=testBaseOptionsOld; fi
