@@ -9,7 +9,7 @@ matrix:
     - php: hhvm-3.18
       sudo: required
       dist: trusty
-      env: LARAVEL='5.4.*'
+      env: LARAVEL='6.0.*'
 
 before_install:
   - travis_retry composer self-update
