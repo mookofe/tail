@@ -3,6 +3,7 @@
 use Mockery;
 use Mookofe\Tail\BaseOptions;
 use PHPUnit\Framework\TestCase;
+use Mookofe\Tail\Exceptions\InvalidOptionException;
 
 
 /**
@@ -27,11 +28,14 @@ class testBaseOptions extends TestCase
     }
 
     /**
-     * @expectedException     Mookofe\Tail\Exceptions\InvalidOptionException
+     * ExpectedException     Mookofe\Tail\Exceptions\InvalidOptionException
      */
     public function testValidateOptionsInvalid()
     {
         $input = Mockery::mock('Illuminate\Config\Repository');
+
+        //Assert
+        $this->expectException(InvalidOptionException::class);
 
         $options = array('invalid_field' => 'this_is_invalid_field');
         $baseOptions = new BaseOptions($input);
