@@ -1,11 +1,19 @@
 language: php
 
-php:
-  - 7.2
+matrix:
+  include:
+    - php: 5.6
+      env: LARAVEL='5.4.*'
+    - php: 7.2
+      env: LARAVEL='6.0'
+      
+before_install:
+  - travis_retry composer self-update
 
-before_script:
-  - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+install:
+  - travis_retry composer install --prefer-source --no-interaction --dev
 
 # script: build.sh
-script: phpunit --configuration phpunit.xml --coverage-text
+script:
+  - if [[ $LARAVEL == '6.0' ]]; then phpunit --configuration phpunit.xml --coverage-text tests/testBaseOptions.php; fi
+  - if [[ $LARAVEL != '6.0' ]]; then phpunit --configuration phpunit.xml --coverage-text tests/testBaseOptionsOld.php; fi
